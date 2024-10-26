@@ -88,7 +88,7 @@ struct NODE *splitPath(char *pathName, char *baseName, char *dirName)
     else
     {
         // if dirName is not a directory then return ERROR
-        printf("ERROR: %s does not exist\n", dirName);
+        printf("MKDIR ERROR: %s does not exist\n", dirName);
         return NULL;
     }
 
@@ -107,7 +107,7 @@ void createNode(char *baseName, struct NODE *parentDir)
 
     if (!newNode)
     {
-        printf("ERROR: Memory allocation failed\n");
+        printf("MKDIR ERROR: Memory allocation failed\n");
         return;
     }
 
@@ -158,6 +158,24 @@ struct NODE *findNodeInChildren(struct NODE *current, const char *target)
 
 void mkdir(char pathName[])
 {
+    // Check if pathName is empty or contains only whitespace characters
+    int isEmptyOrWhitespace = 1;
+    for (int i = 0; pathName[i] != '\0'; i++)
+    {
+        if (pathName[i] != ' ' && pathName[i] != '\t' && pathName[i] != '/')
+        { // Include other whitespace characters as needed
+            isEmptyOrWhitespace = 0;
+            break;
+        }
+    }
+
+    // check if pathName is actually provided
+    if (isEmptyOrWhitespace)
+    {
+        printf("MKDIR ERROR: no path provided\n");
+        return;
+    }
+
     char *baseName = (char *)malloc(sizeof(char) * 256);
     char *dirName = (char *)malloc(sizeof(char) * 256);
 
@@ -193,7 +211,7 @@ void mkdir(char pathName[])
 
         if (!found)
         {
-            printf("ERROR: directory %s does not exist\n", dirName);
+            printf("MKDIR ERROR: directory %s does not exist\n", dirName);
             free(baseName);
             free(dirName);
             free(startPathName);
@@ -218,7 +236,7 @@ void mkdir(char pathName[])
 
     if (dirNode == NULL)
     {
-        printf("ERROR: Parent directory %s does not exist\n", dirName);
+        printf("MKDIR ERROR: Parent directory %s does not exist\n", dirName);
         free(baseName);
         free(dirName);
         return;
@@ -228,7 +246,7 @@ void mkdir(char pathName[])
     // struct NODE *check = findNode(dirNode, baseName);
     if (check != NULL)
     {
-        printf("ERROR: %s already exists in directory '%s'\n", baseName, dirName);
+        printf("MKDIR ERROR: directory %s already exists\n", baseName);
         free(baseName);
         free(dirName);
         return;
