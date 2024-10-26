@@ -88,7 +88,7 @@ struct NODE *splitPath(char *pathName, char *baseName, char *dirName)
     else
     {
         // if dirName is not a directory then return ERROR
-        printf("MKDIR ERROR: %s does not exist\n", dirName);
+        // printf("ERROR: %s does not exist\n", dirName);
         return NULL;
     }
 
@@ -211,7 +211,7 @@ void mkdir(char pathName[])
 
         if (!found)
         {
-            printf("MKDIR ERROR: directory %s does not exist\n", dirName);
+            printf("ERROR: directory %s does not exist\n", dirName);
             free(baseName);
             free(dirName);
             free(startPathName);
