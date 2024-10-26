@@ -246,7 +246,7 @@ void mkdir(char pathName[])
     // struct NODE *check = findNode(dirNode, baseName);
     if (check != NULL)
     {
-        printf("MKDIR ERROR: directory %s already exists\n", baseName);
+        printf("MKDIR ERROR: directory %s already exists\n", pathName);
         free(baseName);
         free(dirName);
         return;
